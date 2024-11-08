@@ -1,6 +1,6 @@
 import { Text, View, Pressable, TextInput, StyleSheet } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import EdiButton from '../EDICertificate/EdiButton';
 import { EdiOrderDetailsScreenOpen } from '../../EDI/ediScreens/EdiOrderDetailsScreenOpen';
@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/client';
 import { useRoute } from '@react-navigation/native';
 
 import { DEPARTMENTS_QUERY } from '../../gql/Query';
-import { OPEN_ORDER_QUERY } from '../../gql/Query';
+// import { OPEN_ORDER_QUERY } from '../../gql/Query';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,9 +23,9 @@ export const  EdiOrderDetailsTab  = ({orderId})=>{
 
   
 
-  const { data, loading, error } = useQuery(OPEN_ORDER_QUERY, {
-    variables: { orderId : "66981a21b7e9ed08923a4105"}, // replace '12345' with the actual order ID
-  });
+  // const { data, loading, error } = useQuery(OPEN_ORDER_QUERY, {
+  //   variables: { orderId : "66981a21b7e9ed08923a4105"}, // replace '12345' with the actual order ID
+  // });
 
   //console.log('data form tab' , data)
   const lens = 11
@@ -34,7 +34,7 @@ export const  EdiOrderDetailsTab  = ({orderId})=>{
   if (error) {
     console.error('OPEN_ORDER_QUERY error', error);
 }
-  return(
+  return (
     <Tab.Navigator
     initialRouteName='EdiOrderDetailsScreenOpen'
     tabBarOptions={{
