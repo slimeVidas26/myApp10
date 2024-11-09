@@ -356,24 +356,43 @@ const styles = StyleSheet.create({
     height: 180,
     
   },
-  signatureWebStyle: `
-    .m-signature-pad {
-      box-shadow: none; 
-      border: none; 
-    }
-    .m-signature-pad--body {
-      border: none;
-      background-color: #ccc;
-    }
-    .m-signature-pad--footer {
-      display: none;
-      margin: 0px;
-    }
-    body,html {
-      width: 100%; height: 100%;
-    }
-  `,
- 
+  // signatureWebStyle: `
+  //   .m-signature-pad {
+  //     box-shadow: none; 
+  //     border: none; 
+  //   }
+  //   .m-signature-pad--body {
+  //     border: none;
+  //     background-color: #ccc;
+  //   }
+  //   .m-signature-pad--footer {
+  //     display: none;
+  //     margin: 0px;
+  //   }
+  //   body,html {
+  //     width: 100%; height: 100%;
+  //   }
+  // `,
+ signatureWebStyle : {
+    style: `
+      .m-signature-pad {
+        box-shadow: none; 
+        border: none; 
+      }
+      .m-signature-pad--body {
+        border: none;
+        background-color: #ccc;
+      }
+      .m-signature-pad--footer {
+        display: none;
+        margin: 0px;
+      }
+      body,html {
+        width: 100%; height: 100%;
+      }
+    `
+  },
+  
   approve: {
     flexDirection: 'row',
     justifyContent: 'space-between',
