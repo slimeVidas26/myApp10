@@ -6,12 +6,13 @@
 // import { I18n } from 'i18n-js';
 
 import React from 'react';
-import { StyleSheet, Text, View, Button  , useWindowDimensions} from 'react-native';
+import { StyleSheet,ImageBackground, Text, View, Button  , TouchableOpacity ,Pressable, useWindowDimensions} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Localization from 'expo-localization';
 import { I18n } from 'i18n-js';
 import { translation } from '../../i18n/supportedLanguages';
+import loginBg from '../../assets/login_bg.jpg';
 
 
 // Initialize i18n
@@ -42,14 +43,25 @@ i18n.enableFallback = true;
   console.log("width" , width)
   const isSmallScreen = width < 600;
       return (
+        <ImageBackground
+        source={isSmallScreen?loginBg:loginBg } // Replace with your image URL
+        style={styles.backgroundImage}
+      >
         <View style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
+
         <Text style={styles.text}>{`${i18n.t('welcome')} ${i18n.t('name')}`}</Text>
         <Text style={styles.text}>Current locale: {i18n.locale}</Text>
         <Text style={styles.text}>Device locale: {Localization.locale}</Text>
         <StatusBar style="auto" />
-        <Button style={styles.button} title={i18n.t('login')} onPress={() => navigation.navigate('PasswordLogin')} />
+        {/* <Pressable style={styles.pressable}  onPress={() => navigation.navigate('PasswordLogin')} >
+        <Text style={styles.buttonText}>{i18n.t('login')}</Text>
+        </Pressable> */}
 
+        <TouchableOpacity style={styles.btn}  onPress={() => navigation.navigate('PasswordLogin')} >
+        <Text style={styles.buttonText}>{i18n.t('login')}</Text>
+        </TouchableOpacity>
        </View>
+       </ImageBackground>
        
       );
 
@@ -68,35 +80,52 @@ i18n.enableFallback = true;
     
 
     const styles = StyleSheet.create({
+      backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover', // Cover the whole screen
+      },
       containerSmall: {
         flex: 1,
-        backgroundColor: '#f5f5f5', // Changed to a softer background color
-        alignItems: 'center',
+        backgroundColor: 'rgba(173, 216, 230, 0.4)',
+          alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20, // Added padding for better layout
       },
 
       containerLarge: {
         flex: 1,
-        backgroundColor: '#f5f5f5', // Changed to a softer background color
+        backgroundColor: 'rgba(173, 216, 230, 0.4)',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20, // Added padding for better layout
       },
-      
+
       text: {
-        fontSize: 20,
-        color: '#333', // Darker text color for better contrast
+        fontSize: 24,
+        color: 'lightblue', // Darker text color for better contrast
         marginBottom: 10,
         textAlign: 'center', // Center the text for a cleaner UI
+        fontWeight: 'bold',
+        textShadowColor: '#000',        // Shadow color
+        textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+        textShadowRadius: 4,            // Blur radius
       },
 
-      button: {
-        marginTop: 70,
-        backgroundColor: '#333', // Updated button color
-        padding: 50,
+      btn:{
+        marginTop: 20,
+        backgroundColor: "blue", // Updated button color
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 60,
+        paddingRight: 60,
         borderRadius: 20,
       },
+      
+      buttonText:{
+        color:'white',
+        fontSize:30,
+      },
+     
     });
 
       export default LandingStackNavigator
