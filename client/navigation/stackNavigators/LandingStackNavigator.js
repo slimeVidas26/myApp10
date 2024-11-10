@@ -6,7 +6,7 @@
 // import { I18n } from 'i18n-js';
 
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button  , useWindowDimensions} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Localization from 'expo-localization';
@@ -37,14 +37,19 @@ i18n.enableFallback = true;
 
 
  const LandingScreen = ({navigation})=>{
+
+  const { width } = useWindowDimensions();
+  console.log("width" , width)
+  const isSmallScreen = width < 600;
       return (
-        <View style={styles.container}>
+        <View style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
         <Text style={styles.text}>{`${i18n.t('welcome')} ${i18n.t('name')}`}</Text>
         <Text style={styles.text}>Current locale: {i18n.locale}</Text>
         <Text style={styles.text}>Device locale: {Localization.locale}</Text>
         <StatusBar style="auto" />
-        <Button title={i18n.t('login')} onPress={() => navigation.navigate('PasswordLogin')} />
-      </View>
+        <Button style={styles.button} title={i18n.t('login')} onPress={() => navigation.navigate('PasswordLogin')} />
+
+       </View>
        
       );
 
@@ -62,66 +67,35 @@ i18n.enableFallback = true;
     }
     
 
-    // const styles = StyleSheet.create({
-    //     container: {
-    //       flex: 1,
-    //       backgroundColor: '#fff',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //     },
-      
-    //     inputView: {
-    //       backgroundColor: "#1f1400",
-    //       borderRadius: 30,
-    //       width: "70%",
-    //       height: 45,
-    //       marginBottom: 20,
-       
-    //       alignItems: "center",
-    //     },
-       
-    //     TextInput: {
-    //       height: 50,
-    //       flex: 1,
-    //       padding: 10,
-    //       marginLeft: 20,
-    //     },
-    //     loginBtn: {
-    //       width: "80%",
-    //       borderRadius: 25,
-    //       height: 50,
-    //       alignItems: "center",
-    //       justifyContent: "center",
-    //       marginTop: 40,
-    //       backgroundColor: "blue",
-    //     },
-    //     text:{
-    //       fontSize:20
-    //     }
-       
-    //   });
-
-    
-
     const styles = StyleSheet.create({
-      container: {
+      containerSmall: {
         flex: 1,
         backgroundColor: '#f5f5f5', // Changed to a softer background color
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20, // Added padding for better layout
       },
+
+      containerLarge: {
+        flex: 1,
+        backgroundColor: '#f5f5f5', // Changed to a softer background color
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20, // Added padding for better layout
+      },
+      
       text: {
         fontSize: 20,
         color: '#333', // Darker text color for better contrast
         marginBottom: 10,
         textAlign: 'center', // Center the text for a cleaner UI
       },
+
       button: {
-        marginTop: 20,
-        backgroundColor: '#007AFF', // Updated button color
-        padding: 10,
-        borderRadius: 10,
+        marginTop: 70,
+        backgroundColor: '#333', // Updated button color
+        padding: 50,
+        borderRadius: 20,
       },
     });
 
