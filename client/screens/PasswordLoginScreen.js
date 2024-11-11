@@ -1,8 +1,10 @@
 import { Image } from 'expo-image';
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View , Button ,TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet,ImageBackground, useWindowDimensions,Text, View , Button ,TextInput,TouchableOpacity } from 'react-native';
 import React, { useState,useEffect } from "react";
+import passwordBG from '../assets/password.jpeg';
+
 
 
 import { useQuery } from "@apollo/client";
@@ -19,6 +21,9 @@ const LOGIN_QUERY = gql`
 export const PasswordLoginScreen = ({navigation})=> {
   
     const [password, setPassword] = useState(''); 
+    const { width } = useWindowDimensions();
+  console.log("width" , width)
+  const isSmallScreen = width < 600;
   
     const { data } = useQuery(LOGIN_QUERY, {
       variables: { password },
@@ -30,29 +35,14 @@ export const PasswordLoginScreen = ({navigation})=> {
       }
     }, [data]);
     return (
+
+
+      <ImageBackground
+      source={isSmallScreen?passwordBG:passwordBG } // Replace with your image URL
+      style={styles.backgroundImage}
+    >
   
       <View style={styles.container}>
-
-  <View style = {styles.image}>
-       <Image  source={require('../assets/rami-levy.png')}
-       placeholder={"rami-levi"}
-           contentFit="cover"
-           transition={1000} />
-       </View>
-       {/* <Image
-           style={styles.expoImage}
-           source="https:picsum.photos/seed/696/3000/2000"
-           placeholder={blurhash}
-           contentFit="cover"
-           transition={1000}
-         /> */}
-
-         {/* <StatusBar style="auto" />
-        <View>
-          <Text style = {styles.text}>
-            Entrance
-            </Text>
-        </View> */}
         
       <Text style={styles.title}>Enter Password</Text>
       <View style={styles.inputView}>
@@ -64,17 +54,8 @@ export const PasswordLoginScreen = ({navigation})=> {
         placeholder="Password"
       />
        </View>
-  
-  
-  
     </View>
-  
-   
-      //   <TouchableOpacity style={styles.loginBtn}
-      //     onPress={() => navigation.navigate('DrawerNavigator')}>
-      //     <Text style={styles.loginText}>Login</Text> 
-      //   </TouchableOpacity>
-      // </View>
+      </ImageBackground>
     );
   }
 
@@ -82,9 +63,13 @@ export const PasswordLoginScreen = ({navigation})=> {
   
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      //backgroundColor: '#fff',
       alignItems: 'center',
        justifyContent: 'center',
+    },
+    backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover', // Cover the whole screen
     },
   
     logo : {
@@ -147,9 +132,15 @@ export const PasswordLoginScreen = ({navigation})=> {
       color : "blue"
     },
     title:{
-      fontSize:30,
-      paddingBottom:25,
-      color : "blue"
+      
+      fontSize: 30,
+      color: 'lightblue', // Darker text color for better contrast
+      marginBottom: 20,
+      textAlign: 'center', // Center the text for a cleaner UI
+      fontWeight: 'bold',
+      textShadowColor: '#000',        // Shadow color
+      textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+      textShadowRadius: 4,  
     }
    
   });

@@ -12,7 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Localization from 'expo-localization';
 import { I18n } from 'i18n-js';
 import { translation } from '../../i18n/supportedLanguages';
-import loginBg from '../../assets/login_bg.jpg';
+import loginBg from '../../assets/landing.png';
 
 
 // Initialize i18n
@@ -86,7 +86,7 @@ i18n.enableFallback = true;
       },
       containerSmall: {
         flex: 1,
-        backgroundColor: 'rgba(173, 216, 230, 0.4)',
+        backgroundColor: 'rgba(173, 216, 230)',
           alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20, // Added padding for better layout
@@ -94,7 +94,7 @@ i18n.enableFallback = true;
 
       containerLarge: {
         flex: 1,
-        backgroundColor: 'rgba(173, 216, 230, 0.4)',
+        backgroundColor: 'rgba(173, 216, 230)',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20, // Added padding for better layout
@@ -112,18 +112,30 @@ i18n.enableFallback = true;
       },
 
       btn:{
-        marginTop: 20,
-        backgroundColor: "blue", // Updated button color
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 60,
-        paddingRight: 60,
-        borderRadius: 20,
+    marginTop: 20,
+    backgroundColor: '#10c974', // button background color
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    alignItems: 'center',
+
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+
+    // Shadow for Android
+    elevation: 5,
       },
       
       buttonText:{
-        color:'white',
-        fontSize:30,
+        color: 'lightblue', // text color
+        fontSize: 20,
+        fontWeight: 'bold',
+        textShadowColor: '#000',        // Shadow color
+        textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+        textShadowRadius: 4,            // Blur radius
       },
      
     });
