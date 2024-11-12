@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ImageBackground, View, FlatList, Dimensions, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ImageBackground,useWindowDimensions, View, FlatList, Dimensions, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { translation } from "../../../i18n/supportedLanguages";
 import * as Localization from 'expo-localization';
@@ -19,14 +19,24 @@ i18n.enableFallback = true;
 //   return { width, spacing };
 // }, []);
 
-const dimensions = {
-  width: (Dimensions.get('window').width - 2 * 10) / 2,
-  spacing: 5,
-};
+// const dimensions = {
+//   width: (Dimensions.get('window').width - 2 * 10) / 2,
+//   spacing: 5,
+// };
+
+
 
 export const HomeScreen = ({navigation})=> {
 
+  // const dimensions = {
+  //   width: (useWindowDimensions().width - 2 * 10) / 2,
+  //    spacing: 5,
+  //  };
+
+  
+
  
+
 
   const {data:deptData, error:deptError, loading:deptLoading} = useQuery(DEPARTMENTS_QUERY);
   const { data:orderData, error:errorData, loading:loadingData } = useQuery(EDI_ORDERS_QUERY);
@@ -37,9 +47,16 @@ export const HomeScreen = ({navigation})=> {
     console.error('DEPARTMENTS_QUERY error', deptError);
 }
 
+const { width } = useWindowDimensions();
+  const S = (width -5 *10)/2;
+  const XL = (width -30*30)/2;
+
+  console.log("width" , width)
+  const isSmallScreen = width < 600;
+
 const DepartmentItem = ({ department }) => (
   <TouchableOpacity onPress={() => navigation.navigate(i18n.t(department.title))}>
-    <View style={styles.container1}>
+    <View style={isSmallScreen ? [styles.departmentSmall,{ width:S }] : [styles.departmentLarge,,{ width: XL }]}>
       <Text style={styles.departmentText}>{i18n.t(department.title)}</Text>
       <View style={styles.circle}>
         <Text style={styles.circleText}>{numOrders}</Text>
@@ -54,30 +71,59 @@ if (deptLoading || loadingData) {
 }
 
 return (
-  <SafeAreaView style={styles.container}>
-    <ImageBackground source={logo} resizeMode="cover" style={styles.image} />
+  <ImageBackground source={logo} style={styles.backgroundImage}>
+  <View style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
+    
     {deptError && <Text>Erreur de chargement des départements</Text>}
     {errorData && <Text>Erreur de chargement des commandes</Text>}
     {deptData && (
       <FlatList
-        style={styles.flatList}
+        // style={styles.flatList}
         data={deptData.departments}
         renderItem={({ item }) => <DepartmentItem department={item} />}
         keyExtractor={(item) => item.id}
         numColumns={2}
         columnWrapperStyle={styles.column}
+        contentContainerStyle={styles.flatListContent}
       />
     )}
-  </SafeAreaView>
+  </View>
+  </ImageBackground>
 );
+
+
 }
 
 
 
+
 const styles = StyleSheet.create({
-  container: {
+  containerSmall: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
+    //padding: 20,
+    flex: 0.5,
+    //marginTop:400
+    // backgroundColor: 'rgba(173, 216, 230)',
+    //backgroundColor: 'red',
+    
+
+      alignItems: 'center',
+    justifyContent: 'flex-end',
+    //paddingHorizontal: 20, // Added padding for better layout
+  },
+
+  containerLarge: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
+    //padding: 20,
     flex: 1,
-    backgroundColor: "#7CA1B4",
+    //marginTop:400
+    // backgroundColor: 'rgba(173, 216, 230)',
+    //backgroundColor: 'red',
+    
+
+      alignItems: 'center',
+    justifyContent: 'flex-end',
+    //paddingHorizontal: 20, // Added padding for better layout
   },
   circle: {
     borderRadius: 20,
@@ -91,26 +137,56 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
-  image: {
+  backgroundImage: {
     flex: 1,
-    justifyContent: 'center',
+    resizeMode: 'cover', // Cover the whole screen
+    justifyContent: 'flex-end', // Align container at the bottom
+    
+    
   },
-  flatList: {
-    flex: 1,
-  },
+  
   column: {
     justifyContent: 'space-around',
   },
-  container1: {
+  // flatList:{
+  //   flex:1,
+  //   backgroundColor:'red',
+  // },
+  flatListContent: {
+    flexGrow: 1,
+    justifyContent: 'center', // Center items vertically
+    alignItems: 'center',     // Center items horizontally
+  },
+  departmentSmall: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: dimensions.width,
+    // width:toto,
     height: 80,
-    margin: dimensions.spacing,
+     margin: 10,
     backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
+  },
+
+  departmentLarge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    //width:toto,
+    height: 80,
+     margin: 10,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+     // Shadow for iOS
+     shadowColor: '#000',
+     shadowOffset: { width: 10, height:  10},
+     shadowOpacity: 0.5,
+     shadowRadius: 4,
+ 
+     // Shadow for Android
+     elevation: 15,
   },
   departmentText: {
     fontSize: 15,

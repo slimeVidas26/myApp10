@@ -29,29 +29,37 @@ export const PasswordLoginScreen = ({navigation})=> {
       variables: { password },
       skip: password.length === 0,
     });
+
+    useEffect(() => {
+      // Clear password on component mount
+      setPassword('');
+    }, []);
+
     useEffect(() => {
       if (data?.login) {
-        navigation.replace('DrawerNavigator');
+        setPassword('');
+        console.log('datalogin' , data.login)
+      
+        navigation.navigate('DrawerNavigator');
       }
-    }, [data]);
+    }, [data , navigation]);
+
     return (
-
-
       <ImageBackground
       source={isSmallScreen?passwordBG:passwordBG } // Replace with your image URL
-      style={styles.backgroundImage}
-    >
-  
-      <View style={styles.container}>
-        
+      style={styles.backgroundImage}>
+
+      <View style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
       <Text style={styles.title}>Enter Password</Text>
-      <View style={styles.inputView}>
+      <View style={isSmallScreen ? styles.inputViewSmall : styles.inputViewLarge}>
       <TextInput
          style={styles.TextInput}
         secureTextEntry={true}
         value={password}
         onChangeText={(password) => setPassword(password)} 
         placeholder="Password"
+        autoComplete="password"  // Enable auto-fill for password fields
+        //textContentType="password"
       />
        </View>
     </View>
@@ -61,7 +69,13 @@ export const PasswordLoginScreen = ({navigation})=> {
 
   const styles = StyleSheet.create({
   
-    container: {
+    containerSmall: {
+      flex: 1,
+      //backgroundColor: '#fff',
+      alignItems: 'center',
+       justifyContent: 'center',
+    },
+    containerLarge: {
       flex: 1,
       //backgroundColor: '#fff',
       alignItems: 'center',
@@ -93,23 +107,36 @@ export const PasswordLoginScreen = ({navigation})=> {
       backgroundColor: '#0553',
     },
   
-    inputView: {
-      backgroundColor: "#d3d3d3",
+    inputViewSmall: {
+      //backgroundColor: "#d3d3d3",
       borderRadius: 30,
       width: "70%",
       height: 55,
       marginBottom: 20,
-   
+      alignItems: "center",
+    },
+    inputViewLarge: {
+      //backgroundColor: "#d3d3d3",
+      borderRadius: 30,
+      width: "35%",
+      height: 55,
+      marginBottom: 20,
       alignItems: "center",
     },
    
     TextInput: {
       height: 60,
-      flex: 1,
-      padding: 5,
-      marginLeft: 10,
+      //flex: 1,
+      //padding: 5,
+      //marginLeft: 10,
       fontSize : 20,
       borderRadius : 25,
+      backgroundColor:'#d3d3d3',
+      paddingVertical: 12,
+      paddingHorizontal: 50,
+      textAlign:'center',
+      color:'#696969'
+
     },
     loginBtn: {
       width: "60%",
