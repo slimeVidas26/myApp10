@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ImageBackground,useWindowDimensions, View, FlatList, Dimensions, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ImageBackground,useWindowDimensions, View, FlatList, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { translation } from "../../../i18n/supportedLanguages";
 import * as Localization from 'expo-localization';
@@ -7,7 +7,7 @@ import { I18n } from 'i18n-js';
 import Constants from 'expo-constants';
 import { useQuery } from "@apollo/client";
 import { DEPARTMENTS_QUERY, EDI_ORDERS_QUERY } from "../../../gql/Query";
-import logo from '../../../assets/warehouse.png';
+import logo from '../../../assets/warehouse2.jpeg';
 
 const i18n = new I18n(translation);
 i18n.locale = Localization.locale;
@@ -54,16 +54,19 @@ const { width } = useWindowDimensions();
   console.log("width" , width)
   const isSmallScreen = width < 600;
 
-const DepartmentItem = ({ department }) => (
-  <TouchableOpacity onPress={() => navigation.navigate(i18n.t(department.title))}>
+const DepartmentItem = ({ department }) => {
+  console.log('i18n.t(department.title)',i18n.t(department.title))
+
+  return (<TouchableOpacity onPress={() => navigation.navigate(i18n.t(department.title))}>
     <View style={isSmallScreen ? [styles.departmentSmall,{ width:S }] : [styles.departmentLarge,,{ width: XL }]}>
       <Text style={styles.departmentText}>{i18n.t(department.title)}</Text>
       <View style={styles.circle}>
         <Text style={styles.circleText}>{numOrders}</Text>
       </View>
     </View>
-  </TouchableOpacity>
-);
+  </TouchableOpacity>)
+}
+
 
 
 if (deptLoading || loadingData) {
@@ -72,7 +75,7 @@ if (deptLoading || loadingData) {
 
 return (
   <ImageBackground source={logo} style={styles.backgroundImage}>
-  <View style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
+  <SafeAreaView style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
     
     {deptError && <Text>Erreur de chargement des départements</Text>}
     {errorData && <Text>Erreur de chargement des commandes</Text>}
@@ -87,7 +90,7 @@ return (
         contentContainerStyle={styles.flatListContent}
       />
     )}
-  </View>
+  </SafeAreaView>
   </ImageBackground>
 );
 
@@ -99,7 +102,7 @@ return (
 
 const styles = StyleSheet.create({
   containerSmall: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
     //padding: 20,
     flex: 0.5,
     //marginTop:400
@@ -140,7 +143,9 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover', // Cover the whole screen
-    justifyContent: 'flex-end', // Align container at the bottom
+    justifyContent: 'space-evenly', // Align container at the bottom
+    alignItems: 'center',     // Center items horizontally
+
     
     
   },
@@ -167,6 +172,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     padding: 10,
+     // Shadow for iOS
+     shadowColor: '#000',
+     shadowOffset: { width: 10, height:  10},
+     shadowOpacity: 0.9,
+     shadowRadius: 4,
+ 
+     // Shadow for Android
+     elevation: 15,
   },
 
   departmentLarge: {

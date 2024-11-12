@@ -11,6 +11,7 @@ import HomeStackNavigator from '../../navigation/stackNavigators/HomeStackNaviga
 //import EdiCertificateConfirmationStackNavigator from './EdiCertificateConfirmationStackNavigator';
 //import EndEdiFormStackNavigator from './_EndEdiFormStackNavigator';
 import { HomeScreen } from '../../screens/drawerScreens/home/HomeScreen';
+
 import EDICertificateScreen from '../ediScreens/EDICertificateScreen';
 // import PopUpScreen from '../../../screens/ediDcreens/PopUpScreen1';
 import { useRoute } from '@react-navigation/native';
@@ -51,7 +52,7 @@ const EdiStackNavigator = () => {
               </View>
             ),
           })}
-         name="EDICertificateScreen" component={EDICertificateScreen} />
+         name="EDICertificate" component={EDICertificateScreen} />
       <Stack.Screen name="EntryCertificate" component={EntryCertificateStackNavigator} />
       {/* <Stack.Screen name="PopUp" component={PopUpScreen} /> */}
       {/* <Stack.Screen name="MyTabBar" component={EdiOrderDetailsStackNavigator} /> */}
