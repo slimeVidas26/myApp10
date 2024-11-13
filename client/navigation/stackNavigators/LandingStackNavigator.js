@@ -40,7 +40,7 @@ i18n.enableFallback = true;
  const LandingScreen = ({navigation})=>{
 
   const { width } = useWindowDimensions();
-  console.log("width" , width)
+  //console.log("width" , width)
   const isSmallScreen = width < 600;
       return (
         <ImageBackground
@@ -57,9 +57,9 @@ i18n.enableFallback = true;
         <Text style={styles.buttonText}>{i18n.t('login')}</Text>
         </Pressable> */}
 
-        <TouchableOpacity style={styles.btn}  onPress={() => navigation.navigate('PasswordLogin')} >
+        <Pressable style={styles.btn}  onPress={() => navigation.navigate('PasswordLogin')} >
         <Text style={styles.buttonText}>{i18n.t('login')}</Text>
-        </TouchableOpacity>
+        </Pressable>
        </View>
        </ImageBackground>
        
@@ -101,14 +101,18 @@ i18n.enableFallback = true;
       },
 
       text: {
+        
         fontSize: 24,
         color: 'lightblue', // Darker text color for better contrast
         marginBottom: 10,
         textAlign: 'center', // Center the text for a cleaner UI
         fontWeight: 'bold',
-        textShadowColor: '#000',        // Shadow color
-        textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
-        textShadowRadius: 4,            // Blur radius
+        // textShadowColor: '#000',        // Shadow color
+        // textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+        // textShadowRadius: 4,            // Blur radius
+        /*The format for boxShadow is:
+       "offsetX offsetY blurRadius color"*/
+        textShadow: "2px 2px 4px rgba(0, 0, 0, 1)",
       },
 
       btn:{
@@ -120,10 +124,14 @@ i18n.enableFallback = true;
     alignItems: 'center',
 
     // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 4,
+    /*The format for boxShadow is:
+       "offsetX offsetY blurRadius color"*/
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+
 
     // Shadow for Android
     elevation: 5,
@@ -133,9 +141,13 @@ i18n.enableFallback = true;
         color: 'lightblue', // text color
         fontSize: 20,
         fontWeight: 'bold',
-        textShadowColor: '#000',        // Shadow color
-        textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
-        textShadowRadius: 4,            // Blur radius
+        // textShadowColor: '#000',        // Shadow color
+        // textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+        // textShadowRadius: 4,            // Blur radius
+          /*The format for boxShadow is:
+       "offsetX offsetY blurRadius color"*/
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 1)",
+
       },
      
     });

@@ -29,7 +29,7 @@ const LoginStackNavigator = () => {
     }}>
             {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
 
-      <Stack.Screen name="PasswordLogin" component={PasswordLoginScreen} />
+      <Stack.Screen name="PasswordLoginStack" component={PasswordLoginScreen} />
 
     </Stack.Navigator>
   )

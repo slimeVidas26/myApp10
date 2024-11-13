@@ -165,9 +165,12 @@ export const PasswordLoginScreen = ({navigation})=> {
       marginBottom: 20,
       textAlign: 'center', // Center the text for a cleaner UI
       fontWeight: 'bold',
-      textShadowColor: '#000',        // Shadow color
-      textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
-      textShadowRadius: 4,  
+      // textShadowColor: '#000',        // Shadow color
+      // textShadowOffset: { width: 2, height: 2 }, // Offset the shadow
+      // textShadowRadius: 4,  
+      /*The format for textShadow is:
+      "offsetX offsetY blurRadius color"*/
+      textShadow: "2px 2px 4px #000",
     }
    
   });

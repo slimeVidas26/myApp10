@@ -58,14 +58,15 @@ const { width   ,height} = useWindowDimensions();
   const isSmallScreen = width < 600;
 
 const DepartmentItem = ({ department }) => {
+
   const departmentLarge= {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: "white",
     width:width *0.3,
-    height: height * 0.1, // Responsive height (10% of screen height)
-    margin: width * 0.025, // Responsive margin (2.5% of screen width)
+    height: height * 0.025, // Responsive height (10% of screen height)
+    margin: width * 0.015, // Responsive margin (2.5% of screen width)
     borderRadius: 10,
     padding: width * 0.025, // Responsive padding (2.5% of screen width)
     shadowColor: '#000',
@@ -143,8 +144,6 @@ const styles = StyleSheet.create({
     //marginTop:400
     // backgroundColor: 'rgba(173, 216, 230)',
     //backgroundColor: 'red',
-    
-
       alignItems: 'center',
     justifyContent: 'flex-end',
     //paddingHorizontal: 20, // Added padding for better layout
@@ -156,9 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //marginTop:400
     // backgroundColor: 'rgba(173, 216, 230)',
-    //backgroundColor: 'red',
-    
-
+    backgroundColor: 'red',
       alignItems: 'center',
     justifyContent: 'flex-end',
     //paddingHorizontal: 20, // Added padding for better layout
@@ -178,7 +175,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover', // Cover the whole screen
-    justifyContent: 'space-evenly', // Align container at the bottom
+    justifyContent: 'center', // Align container at the bottom
     alignItems: 'center',     // Center items horizontally
 
     
@@ -193,9 +190,10 @@ const styles = StyleSheet.create({
   //   backgroundColor:'red',
   // },
   flatListContent: {
-    flexGrow: 1,
+    //flexGrow: 1,
     justifyContent: 'center', // Center items vertically
     alignItems: 'center',     // Center items horizontally
+
   },
   
 

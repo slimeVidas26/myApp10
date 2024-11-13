@@ -38,7 +38,7 @@ const App = () => {
       {/* <RootStack.Screen name="EdiItemApprovalScreen" component={EdiItemApprovalScreen} />  */}
        {/* <RootStack.Screen name="EdiCertificateConfirmationScreen" component={EdiCertificateConfirmationScreen} /> */}
 
-    <RootStack.Screen name="Landing" component={LandingStackNavigator} />
+    <RootStack.Screen name="LandingApp" component={LandingStackNavigator} />
       <RootStack.Screen name="PasswordLogin" component={LoginStackNavigator} />
       <RootStack.Screen name="DrawerNavigator" component={DrawerNavigator} />
     </RootStack.Group>
