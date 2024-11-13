@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, ImageBackground,useWindowDimensions, View, FlatList, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ImageBackground,Platform, useWindowDimensions, View, FlatList, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { translation } from "../../../i18n/supportedLanguages";
 import * as Localization from 'expo-localization';
@@ -47,18 +47,53 @@ export const HomeScreen = ({navigation})=> {
     console.error('DEPARTMENTS_QUERY error', deptError);
 }
 
-const { width } = useWindowDimensions();
-  const S = (width -5 *10)/2;
-  const XL = (width -30*30)/2;
+const { width   ,height} = useWindowDimensions();
 
-  console.log("width" , width)
+
+
+  // const S = (width -5 *10)/2;
+  // const XL = (width -30*30)/2;
+
+  //console.log("width" , width)
   const isSmallScreen = width < 600;
 
 const DepartmentItem = ({ department }) => {
-  console.log('i18n.t(department.title)',i18n.t(department.title))
+  const departmentLarge= {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: "white",
+    width:width *0.3,
+    height: height * 0.1, // Responsive height (10% of screen height)
+    margin: width * 0.025, // Responsive margin (2.5% of screen width)
+    borderRadius: 10,
+    padding: width * 0.025, // Responsive padding (2.5% of screen width)
+    shadowColor: '#000',
+    shadowOffset: { width: 5, height: 5 }, // Adjusted shadow offset
+    shadowOpacity: 0.3, // Adjusted for a more subtle shadow
+    shadowRadius: 5,
+    elevation: Platform.OS === 'android' ? 10 : 0, // Shadow for Android only
+  }
+  
+  const departmentSmall= {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: "white",
+    width:width * 0.45,
+    height: height * 0.08, // Responsive height (10% of screen height)
+    margin: width * 0.025, // Responsive margin (2.5% of screen width)
+    borderRadius: 10,
+    padding: width * 0.025, // Responsive padding (2.5% of screen width)
+    shadowColor: '#000',
+    shadowOffset: { width: 5, height: 5 }, // Adjusted shadow offset
+    shadowOpacity: 0.3, // Adjusted for a more subtle shadow
+    shadowRadius: 5,
+    elevation: Platform.OS === 'android' ? 10 : 0, // Shadow for Android only
+  }
 
   return (<TouchableOpacity onPress={() => navigation.navigate(i18n.t(department.title))}>
-    <View style={isSmallScreen ? [styles.departmentSmall,{ width:S }] : [styles.departmentLarge,,{ width: XL }]}>
+    <View style={isSmallScreen ? departmentSmall : departmentLarge}>
       <Text style={styles.departmentText}>{i18n.t(department.title)}</Text>
       <View style={styles.circle}>
         <Text style={styles.circleText}>{numOrders}</Text>
@@ -74,7 +109,7 @@ if (deptLoading || loadingData) {
 }
 
 return (
-  <ImageBackground source={logo} style={styles.backgroundImage}>
+   <ImageBackground source={logo} style={styles.backgroundImage}>
   <SafeAreaView style={isSmallScreen ? styles.containerSmall : styles.containerLarge}>
     
     {deptError && <Text>Erreur de chargement des départements</Text>}
@@ -91,7 +126,7 @@ return (
       />
     )}
   </SafeAreaView>
-  </ImageBackground>
+   </ImageBackground>
 );
 
 
@@ -116,7 +151,7 @@ const styles = StyleSheet.create({
   },
 
   containerLarge: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background color with transparency
     //padding: 20,
     flex: 1,
     //marginTop:400
@@ -162,45 +197,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Center items vertically
     alignItems: 'center',     // Center items horizontally
   },
-  departmentSmall: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    // width:toto,
-    height: 80,
-     margin: 10,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-     // Shadow for iOS
-     shadowColor: '#000',
-     shadowOffset: { width: 10, height:  10},
-     shadowOpacity: 0.9,
-     shadowRadius: 4,
- 
-     // Shadow for Android
-     elevation: 15,
-  },
+  
 
-  departmentLarge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    //width:toto,
-    height: 80,
-     margin: 10,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-     // Shadow for iOS
-     shadowColor: '#000',
-     shadowOffset: { width: 10, height:  10},
-     shadowOpacity: 0.5,
-     shadowRadius: 4,
+  // departmentLarge: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-between',
+  //   // width:toto,
+  //   height: 80,
+  //    margin: 10,
+  //   backgroundColor: "white",
+  //   borderRadius: 10,
+  //   padding: 10,
+  //    // Shadow for iOS
+  //    shadowColor: '#000',
+  //    shadowOffset: { width: 10, height:  10},
+  //    shadowOpacity: 0.9,
+  //    shadowRadius: 4,
  
-     // Shadow for Android
-     elevation: 15,
-  },
+  //    // Shadow for Android
+  //    elevation: 15,
+  // },
+
+  
   departmentText: {
     fontSize: 15,
     fontWeight: "bold",
